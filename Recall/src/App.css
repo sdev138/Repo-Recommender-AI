@@ -49,9 +49,9 @@
 
 .sidebar {
   width: 250px;
-  background-color: #f0f0f0;
+  background-color: #655e5e;
   padding: 20px;
-  border-right: 1px solid #ddd;
+  border-right: 1px solid #5c5656;
 }
 
 .sidebar ul {
@@ -99,12 +99,12 @@
 }
 
 .message.user {
-  background-color: #e3f2fd;
+  background-color: #1e7cbf;
   margin-left: auto;
 }
 
 .message.bot {
-  background-color: #f5f5f5;
+  background-color: #6a6161;
   margin-right: auto;
 }
 
@@ -116,7 +116,7 @@
 .chat-input input {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #247aab;
   border-radius: 4px;
 }
 
