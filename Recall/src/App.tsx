@@ -19,7 +19,16 @@ function App() {
       setMessages([...messages, { text: inputText, sender: 'user'}])
       setInputText('');
 
+      const mistralApiKey = ""
+      const llamaApiKey = ""
+
       // adding the LLM API Integration for both Mistral and Llama
+      if (selectedModel === 'mistral') {
+        // perform mistral api integration
+      
+      } else {
+        // perform llama api integration
+      }
     }
   }
 
@@ -35,6 +44,7 @@ function App() {
           </ul>
           <div className='model-selector'>
             <h3>Select Model</h3>
+            {/* Creating the select tag such that it only mistral or llama can be chosen */}
             <select
               value={selectedModel}
               onChange={(i) => setSelectedModel(i.target.value as 'mistral' | 'llama')}
@@ -48,6 +58,7 @@ function App() {
         <main className='chat-container'>
           {/* Creating the messaging function */}
           <div className="chat-messages">
+            {/* All chats will appear in this text box */}
             {messages.map((message, index) => (
               <div key={index} className={`message ${message.sender}`}>
                 {message.text}
@@ -59,17 +70,16 @@ function App() {
               type='text'
               value={inputText}
               onChange={(i) => setInputText(i.target.value)}
-              placeholder='Type your message...'
+              placeholder='What repos are you looking for?'
               onKeyDown={(i) => i.key === 'Enter' && handleSend()}
             />
             <button onClick={handleSend}>Send</button>
           </div>
         </main>
+
       </div>
     </>
   )
 }
-
-
 
 export default App
