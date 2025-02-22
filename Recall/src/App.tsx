@@ -10,10 +10,6 @@ interface Message {
   sender: "user" | "bot";
 }
 
-// const mistral = new Mistral({
-//   apiKey: process.env[VITE_MISTRAL_API_KEY] ?? "",
-// });
-
 function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState('');
@@ -50,7 +46,6 @@ function App() {
         console.log("setting the mistral chat")
 
         // setting the bot messages in the chat
-        // setMessages([chatResponse.choices[0].message.content]);
         if (chatResponse.choices && chatResponse.choices.length > 0) {
           setMessages([...messages, {
             text: chatResponse.choices[0].message.content,
@@ -72,7 +67,11 @@ function App() {
         });
 
         console.log("Finishing openai message integration")
-        setMessages([completion])
+        if (completion) {
+          setMessages([completion])
+        } else {
+          console.error("No response from openai api")
+        }
       }
     }
   }
