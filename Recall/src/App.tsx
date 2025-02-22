@@ -4,6 +4,8 @@ import { useState } from 'react'
 import './App.css'
 import { Mistral } from '@mistralai/mistralai'
 import OpenAI from "openai";
+import { Routes, Route, Link } from 'react-router-dom'
+import Profile from './Profile'
 
 interface Message {
   text: string | null | undefined,
@@ -83,8 +85,8 @@ function App() {
         <nav className="sidebar">
           <h2>Welcome</h2>
           <ul>
-            <li>Chat</li>
-            <li>Profile</li>
+            <li><Link to="/">Chat</Link></li>
+            <li><Link to="/profile">Profile</Link></li>
           </ul>
           <div className='model-selector'>
             <h3>Select Model</h3>
@@ -100,33 +102,40 @@ function App() {
         </nav>
 
         <main className='chat-container'>
-          {/* Creating the messaging function */}
-          <div className="chat-messages">
-            {/* All chats will appear in this text box */}
-            {messages.map((message, index) => (
-              <div key={index} className={`message ${message.sender}`}>
-                {message.text}
-              </div>
-            ))}
-          </div>
-          <div className='chat-input'>
-            <input
-              type='text'
-              value={inputText}
-              onChange={(i) => setInputText(i.target.value)}
-              placeholder='What repos are you looking for?'
-              onKeyDown={(i) => i.key === 'Enter' && handleSend()}
-            />
-            <button 
-              // syntax is to handle multiple lines of code, not returning anything
-              onClick={() => {
-                console.log("Sending the input message...");
-                handleSend();
-              }}
-              >
-              Send
-            </button>
-          </div>
+          <Routes>
+            <Route path="/" element={
+              <>
+                {/* Creating the messaging function */}
+                <div className="chat-messages">
+                  {/* All chats will appear in this text box */}
+                  {messages.map((message, index) => (
+                    <div key={index} className={`message ${message.sender}`}>
+                      {message.text}
+                    </div>
+                  ))}
+                </div>
+                <div className='chat-input'>
+                  <input
+                    type='text'
+                    value={inputText}
+                    onChange={(i) => setInputText(i.target.value)}
+                    placeholder='What repos are you looking for?'
+                    onKeyDown={(i) => i.key === 'Enter' && handleSend()}
+                  />
+                  <button 
+                    // syntax is to handle multiple lines of code, not returning anything
+                    onClick={() => {
+                      console.log("Sending the input message...");
+                      handleSend();
+                    }}
+                    >
+                    Send
+                  </button>
+                </div>
+              </>
+            } />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
         </main>
 
       </div>
