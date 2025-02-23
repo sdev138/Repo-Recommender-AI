@@ -32,6 +32,12 @@
   font-weight: 600;
   margin-bottom: 2rem;
   color: #fff;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.sidebar h2:hover {
+  color: var(--primary-color);
 }
 
 .sidebar ul {

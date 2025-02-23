@@ -98,7 +98,9 @@ function App() {
       {/* <img src={reactLogo} alt="react logo" /> */}
       <div className='app-container'>
         <nav className="sidebar">
-          <h2>Welcome</h2>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <h2>RepoRecall AI</h2>
+          </Link>
           <ul>
             <li><Link to="/">Chat</Link></li>
             <li><Link to="/profile">Profile</Link></li>
@@ -154,7 +156,6 @@ function App() {
             <Route path="/repo" element={<Repo />} />
           </Routes>
         </main>
-
       </div>
     </>
   )
