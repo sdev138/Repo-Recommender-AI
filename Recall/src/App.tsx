@@ -62,15 +62,30 @@ function App() {
         // perform openai api integration
         const completion = await openai.chat.completions.create({
           model: "gpt-4o",
-          store: true,
           messages: [
-            {"role": "user", "content": inputText}
-          ]
+            { 
+              role: "developer", 
+              content: "You are a helpful assistant that is part of a system that tries find repos that complementes a users skill, so that they can contribute to them" 
+            },
+            {
+              role: "user", 
+              content: inputText
+            }
+          ],
+          store: true,
         });
 
         console.log("Finishing openai message integration")
-        if (completion) {
-          setMessages([completion])
+
+        // setting the openai bot messages in the chat when toggled
+        if (completion.choices && completion.choices.length > 0) {
+          console.log("Before setting messages")
+          // setMessages([completion])
+          setMessages([...messages, {
+            text: completion.choices[0].message.content,
+            sender: 'bot'
+          }]);
+          console.log("Finished setting messages")
         } else {
           console.error("No response from openai api")
         }
