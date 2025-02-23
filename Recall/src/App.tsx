@@ -6,6 +6,7 @@ import { Mistral } from '@mistralai/mistralai'
 import OpenAI from "openai";
 import { Routes, Route, Link } from 'react-router-dom'
 import Profile from './Profile'
+import Repo from './Repo'
 
 interface Message {
   text: string | null | undefined,
@@ -80,7 +81,6 @@ function App() {
         // setting the openai bot messages in the chat when toggled
         if (completion.choices && completion.choices.length > 0) {
           console.log("Before setting messages")
-          // setMessages([completion])
           setMessages([...messages, {
             text: completion.choices[0].message.content,
             sender: 'bot'
@@ -102,6 +102,7 @@ function App() {
           <ul>
             <li><Link to="/">Chat</Link></li>
             <li><Link to="/profile">Profile</Link></li>
+            <li><Link to="/repo">Repositories</Link></li>
           </ul>
           <div className='model-selector'>
             <h3>Select Model</h3>
@@ -150,6 +151,7 @@ function App() {
               </>
             } />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/repo" element={<Repo />} />
           </Routes>
         </main>
 
