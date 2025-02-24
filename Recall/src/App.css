@@ -170,3 +170,10 @@
 .chat-input button:active {
   transform: translateY(0);
 }
+
+.bot-logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  vertical-align: middle;
+}

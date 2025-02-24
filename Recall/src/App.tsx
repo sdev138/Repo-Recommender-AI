@@ -7,10 +7,14 @@ import OpenAI from "openai";
 import { Routes, Route, Link } from 'react-router-dom'
 import Profile from './Profile'
 import Repo from './Repo'
+import Login from './Login'
+import mistralLogo from './assets/mistral-logo.png'
+import openaiLogo from './assets/openai-logo.png'
 
 interface Message {
   text: string | null | undefined,
   sender: "user" | "bot";
+  model: 'mistral' | 'openai';
 }
 
 function App() {
@@ -22,7 +26,7 @@ function App() {
     console.log("Inside the handleSend const")
     if (inputText.trim()) {
       console.log("Their is input text, first if statement")
-      setMessages([...messages, { text: inputText, sender: 'user'}])
+      setMessages([...messages, { text: inputText, sender: 'user', model: selectedModel}])
       setInputText('');
 
       console.log("After setting the messages and inputText...")
@@ -52,7 +56,8 @@ function App() {
         if (chatResponse.choices && chatResponse.choices.length > 0) {
           setMessages([...messages, {
             text: chatResponse.choices[0].message.content,
-            sender: 'bot'
+            sender: 'bot',
+            model: 'mistral' // might have to delete
           }]);
         } else {
           console.error("No choices returned from Mistral API");
@@ -83,7 +88,8 @@ function App() {
           console.log("Before setting messages")
           setMessages([...messages, {
             text: completion.choices[0].message.content,
-            sender: 'bot'
+            sender: 'bot',
+            model: 'openai' // might have to delete
           }]);
           console.log("Finished setting messages")
         } else {
@@ -125,9 +131,17 @@ function App() {
               <>
                 {/* Creating the messaging function */}
                 <div className="chat-messages">
+                  {/* placing the images next to chat messages */}
                   {/* All chats will appear in this text box */}
                   {messages.map((message, index) => (
                     <div key={index} className={`message ${message.sender}`}>
+                      {message.sender === 'bot' && message.model && (
+                        <img
+                          src={message.model === 'mistral' ? mistralLogo : openaiLogo}
+                          alt={`${message.model} logo`}
+                          className='bot-logo'
+                        />
+                      )}
                       {message.text}
                     </div>
                   ))}
@@ -154,6 +168,7 @@ function App() {
             } />
             <Route path="/profile" element={<Profile />} />
             <Route path="/repo" element={<Repo />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </main>
       </div>
