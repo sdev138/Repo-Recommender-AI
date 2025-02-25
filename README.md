@@ -5,8 +5,10 @@ The main purpose of this program is to help college students and up and coming s
 through open-sourced contributions.
 
 To run this program, enter the following commands:
-```cd Recall
-```npm install
-```npm run dev
+```
+cd Recall
+npm install
+npm run dev
+```
 
 Make sure to set your own custom API keys for Mistral AI and Open AI's ChatGPT
