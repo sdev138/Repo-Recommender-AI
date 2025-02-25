@@ -1,6 +1,4 @@
 import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import './App.css'
 import { Mistral } from '@mistralai/mistralai'
 import OpenAI from "openai";
@@ -11,11 +9,29 @@ import Login from './Login'
 import mistralLogo from './assets/mistral-logo.png'
 import openaiLogo from './assets/openai-logo.png'
 
+// importing markdown client
+import {createRoot} from 'react-dom/client'
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
 interface Message {
   text: string | null | undefined,
   sender: "user" | "bot";
   model: 'mistral' | 'openai';
 }
+
+interface Repo {
+  name: string;
+  description: string;
+  stars: number;
+  language: string;
+  url: string;
+}
+
+// Delete if markdown optimization doesn't work
+// createRoot(document.body).render(
+//   <Markdown remarkPlugins={[remarkGfm]}>{message.text}</Markdown>
+// )
 
 function App() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -71,7 +87,7 @@ function App() {
           messages: [
             { 
               role: "developer", 
-              content: "You are a helpful assistant that is part of a system that tries find repos that complementes a users skill, so that they can contribute to them" 
+              content: "You are a helpful assistant that is part of a system that tries find repos that complementes a users skill, so that they can contribute to them. You must make your you are helping the user learn by contributing to open-source technology." 
             },
             {
               role: "user", 
@@ -143,6 +159,7 @@ function App() {
                         />
                       )}
                       {message.text}
+                      {/* createRoot(document.body).render(<Markdown>{message.text}</Markdown>) */}
                     </div>
                   ))}
                 </div>
